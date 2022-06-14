@@ -14,7 +14,7 @@ class TestController extends Controller
     public function index()
     {
         // PASSING name PARAM WHEN ACTION index IS CALLED
-        return view("index", ["name" => 'Marcos Andres', 'age' => 22, 'html' => '<h1>TITLE</h1>']);
+        return view("index", ["name" => 'Marcos Andres', 'age' => 22, 'html' => '<h1>TITLE</h1>', 'array' => [1,2,3,4]]);
     }
 
     /**

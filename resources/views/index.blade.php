@@ -9,7 +9,35 @@
 <body>
     <!-- USE ! TO SHOW HTML CODE AS USUAL -->
     {!! $html !!}
+
+    <!-- IF CONDITIONAL -->
+    @if ($name == "Marcos")
+        Thats true
+    @else
+        Thats not true
+    @endif
+
+    <br>
+
+    <!-- FOREACH AND FORELSE (IN CASE THERE IS NO DATA IN ARRAY RECEIVED) USING DATA FROM index ACTION (CONTROLLER)-->
+    @foreach ($array as $a)
+        <div class="box item">
+            <p>* {{$a}}</p>
+        </div>        
+    @endforeach
+    @forelse ($array as $a)
+        <div class="box item">
+            <p>- {{$a}}</p>
+        </div>     
+    
+    @empty
+            NO DATA
+    @endforelse
+
+    <br>
     {{ $name }} <br>
+    <!-- THE RIGHT WAY TO COMMENT PHP IN BLADE: -->
+    {{-- $age --}}
     {{ $age }}
 </body>
 </html>
