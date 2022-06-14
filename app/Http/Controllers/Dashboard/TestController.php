@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -13,8 +14,10 @@ class TestController extends Controller
      */
     public function index()
     {
+        $posts = [1,2,3,4,'Marcos'];
         // PASSING name PARAM WHEN ACTION index IS CALLED
-        return view("index", ["name" => 'Marcos Andres', 'age' => 22, 'html' => '<h1>TITLE</h1>', 'array' => [1,2,3,4]]);
+        // compact ALLOWS TO NOT WRITING ["posts" => $posts]
+        return view("dashboard.test.index", compact('posts'));
     }
 
     /**
