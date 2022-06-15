@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [TestController::class, 'index']);
+Route::get('/', function() {
+    return view('welcome');
+});
+
+// RESOURCE ROUTE TYPE
+// ALLOWS TO AVOID WRITING A ROUTE FOR EVERY METHOD IN A CONTROLLER
+Route::resource('post', PostController::class);
+
+    //////// WITH PREVIOUS ROUTE resource WE AVOID WRITING ALL THE 
+    //////// FOLLOWING ROUTES
+// Route::get('post', PostController::class, 'index');
+// Route::get('post/{post}', PostController::class, 'show');
+// Route::get('post/create', PostController::class, 'create');
+// Route::get('post/{post}/edit', PostController::class, 'edit');
+
+
+// Route::post('post', PostController::class, 'store');
+// Route::put('post/{post}', PostController::class, 'update');
+// Route::delete('post/{post}', PostController::class, 'delete');

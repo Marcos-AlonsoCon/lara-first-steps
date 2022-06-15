@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +15,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $posts = [1,2,3,4,'Marcos'];
-        // PASSING name PARAM WHEN ACTION index IS CALLED
-        // compact ALLOWS TO NOT WRITING ["posts" => $posts]
-        return view("dashboard.test.index", compact('posts'));
+        echo 'INDEX';
     }
 
     /**
@@ -25,9 +23,11 @@ class TestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // THIS METHOD SHOWS THE FORM TO CREATE A POST
     public function create()
     {
-        //
+        echo view('dashboard.post.create');
     }
 
     /**
@@ -36,18 +36,24 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // ALLOWS TO CREATE THE NEW POST FROM THE create METHOD FORM
     public function store(Request $request)
     {
-        //
+        // echo request("title");
+        // RETRIEVING DATA FROM THE create METHOD FORM 
+        echo $request->input('slug');
+        // dd FORMATS THE ARRAY WITH ALL THE $request ELEMENTS
+        dd($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
         //
     }
@@ -55,10 +61,10 @@ class TestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         //
     }
@@ -67,10 +73,10 @@ class TestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -78,10 +84,10 @@ class TestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
         //
     }
