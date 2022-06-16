@@ -4,9 +4,9 @@
 
 @section('content')
 
-<a href="{{ route("post.create") }}">CREATE</a>
+<a class="btn btn-success my-3" href="{{ route("post.create") }}">CREATE</a>
 
-<table>
+<table class="table mb-3">
     <thead>
         <tr>
             <th>
@@ -31,7 +31,7 @@
                     {{ $post->title }}
                 </td>
                 <td>
-                    {{-- CAN ACCESS TO THE POST CATEGORY BECAUSE FOF THE RELATIONSHIP IN THE MODEL --}}
+                    {{-- CAN ACCESS TO THE POST CATEGORY BECAUSE OF THE RELATIONSHIP IN THE MODEL --}}
                     {{ $post->category->title }}
                 </td>
                 <td>
@@ -39,15 +39,15 @@
                 </td>
                 <td>
                     {{-- SEND TO THE ROUTE WITH THE POST WE WANT TO UPDATE SOMEHOW OR SHOW--}}
-                    <a href="{{ route("post.edit", $post) }}">Edit</a>
-                    <a href="{{ route("post.show", $post) }}">Show</a>
+                    <a class="btn btn-primary mt-2" href="{{ route("post.edit", $post) }}">Edit</a>
+                    <a class="btn btn-primary mt-2" href="{{ route("post.show", $post) }}">Show</a>
                     
                     {{-- TO DELETE, A FORM MUST BE APPLIED --}}
                     {{-- WE ALSO NEED TO PROVIDE THE METHOD THAT IS BEING USED --}}
                     <form action="{{ route("post.destroy", $post) }}" method="post">
                         @method("DELETE")
                         @csrf
-                        <button type="submit">Delete</button>
+                        <button class="btn btn-danger mt-2" type="submit">Delete</button>
                     </form>
                     
                 </td>

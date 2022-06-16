@@ -4,9 +4,9 @@
 
 @section('content')
 
-<a href="{{ route("category.create") }}">CREATE</a>
+<a class="btn btn-success my-2" href="{{ route("category.create") }}">CREATE</a>
 
-<table>
+<table class="table mb-3">
     <thead>
         <tr>
             <th>
@@ -26,15 +26,15 @@
                 </td>
                 <td>
                     {{-- SEND TO THE ROUTE WITH THE POST WE WANT TO UPDATE SOMEHOW OR SHOW--}}
-                    <a href="{{ route("category.edit", $category) }}">Edit</a>
-                    <a href="{{ route("category.show", $category) }}">Show</a>
+                    <a class="btn btn-primary my-2" href="{{ route("category.edit", $category) }}">Edit</a>
+                    <a class="btn btn-primary my-2" href="{{ route("category.show", $category) }}">Show</a>
                     
                     {{-- TO DELETE, A FORM MUST BE APPLIED --}}
                     {{-- WE ALSO NEED TO PROVIDE THE METHOD THAT IS BEING USED --}}
                     <form action="{{ route("category.destroy", $category) }}" method="post">
                         @method("DELETE")
                         @csrf
-                        <button type="submit">Delete</button>
+                        <button class="btn btn-danger my-2" type="submit">Delete</button>
                     </form>
                     
                 </td>

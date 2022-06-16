@@ -9,13 +9,13 @@
          <label for="">Title</label>
          {{-- old PLACES THE VALUES THAT WERE TYPED BEFORE AN ERROR OR VALIDATION OCCURS --}}
          {{-- old RECEIVES THE name OF THE HTML COMPONENT --}}
-         <input type="text" name="title" value="{{ old("title",$post->title) }}">
+         <input type="text" class="form-control" name="title" value="{{ old("title",$post->title) }}">
      
          <label for="">Slug</label>
-         <input type="text" name="slug" value="{{ old("slug",$post->slug) }}">
+         <input type="text" class="form-control" name="slug" value="{{ old("slug",$post->slug) }}">
      
          <label for="">Select category</label>
-         <select name="category_id">
+         <select class="form-control" name="category_id">
              <option value=""></option>
              {{-- FOREACH USING Category::get() IN create PostController METHOD --}}
              {{-- @foreach ($categories as $category)
@@ -31,20 +31,20 @@
          </select>
      
          <label for="">Posted</label>
-         <select name="posted">
+         <select class="form-control" name="posted">
              <option {{ old("posted",$post->posted) == "not" ? "selected" : "" }} value="not">No</option>
              <option {{ old("posted",$post->posted) == "yes" ? "selected" : "" }} value="yes">Yes</option>            
          </select>
      
          <label for="">Content</label>
-         <textarea name="content">{{ old("content",$post->content) }}</textarea>
+         <textarea class="form-control" name="content">{{ old("content",$post->content) }}</textarea>
      
          <label for="">Description</label>
-         <textarea name="description">{{ old("description",$post->description) }}</textarea>
+         <textarea class="form-control" name="description">{{ old("description",$post->description) }}</textarea>
          
          @if (isset($task) && $task == "edit")
              <label for="">Image</label>
              <input type="file" name="image">
          @endif
      
-         <button type="submit">Send</button>
+         <button type="submit" class="btn btn-success mt-2">Send</button>
