@@ -21,7 +21,8 @@ Route::get('/', function () {
 
 
 // PROTECTING THE ROUTES WITH MIDDLEWARE
-Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function() {
+// middleware INCLUDES THE auth FOR THE AUTHENTICATION AND admin TO VERIFY IF THE USER IS ADMIN
+Route::group(['prefix' => 'dashboard', 'middleware' => ["auth","admin"]], function() {
     
     Route::get('/', function () {
         return view('dashboard');
