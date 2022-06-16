@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+// IMPORTING THE REQUEST FOR POSTS
+use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\PutRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -15,7 +18,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        echo 'INDEX';
+        
+        // paginate RETRIEVES THE NUMBER OF ELEMENTS WE WANT TO SHOW AND THEN USE PAGINATION IN index VIEW
+        $posts = Post::paginate(2);
+        return view('dashboard.post.index',compact('posts'));
     }
 
     /**
@@ -24,10 +30,20 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // THIS METHOD SHOWS THE FORM TO CREATE A POST
+    // SHOWS THE FORM TO CREATE A POST
     public function create()
     {
-        echo view('dashboard.post.create');
+        // GETTING CATEGORIES USING THE Category MODEL
+        // Category::get() IS LIKE select * from categories
+        // $categories = Category::get();
+
+        // PLUCK RETURNS ONLY THE DATA WE WANT FROM Category REGISTERS
+        $categories = Category::pluck('id', 'title');
+
+        $post = new Post();
+        // dd($categories);
+        // SENDING THE CATEGORIES TO THE create FORM IN ORDER TO SHOW THEM AS OPTION CATEGORIES
+        echo view('dashboard.post.create', compact('categories', 'post'));
     }
 
     /**
@@ -37,14 +53,37 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // ALLOWS TO CREATE THE NEW POST FROM THE create METHOD FORM
-    public function store(Request $request)
+    // STORES THE NEW POST FROM THE create METHOD FORM
+    // StoreRequest ALLOWS USING THE StoreRequest OF THE POSTS
+    // IF THE VALIDATION FAILS, IT WILL SEND YPU BACK TO THE LAST VIEW (create's FORM)
+    public function store(StoreRequest $request)
     {
         // echo request("title");
         // RETRIEVING DATA FROM THE create METHOD FORM 
-        echo $request->input('slug');
+            // echo $request->input('slug');
         // dd FORMATS THE ARRAY WITH ALL THE $request ELEMENTS
-        dd($request->all());
+            // dd($request->all());
+
+        // ANOTHER WAY TO VALIDATE BUT LOCALLY
+            // $validated = $request->validate([
+            //     "title" => "required|min:5|max:500",
+            //     "slug" => "required|min:5|max:500",
+            //     "content" => "required|min:5|max:500",
+            //     "category_id" => "required|integer",
+            //     "description" => "required|min:7",
+            //     "posted" => "required"
+            // ]);
+
+            // dd($validated);
+        
+        // $data = array_merge($request->all(),['image' => '']);
+        
+        // EXECUTES THE CREATE REQUEST WITH VALIDATIONS
+        Post::create($request->validated());
+        // dd($request->validated());
+
+        return to_route("post.index")->with('status',"Post created!");
+
     }
 
     /**
@@ -55,7 +94,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view("dashboard.post.show", compact('post'));
     }
 
     /**
@@ -66,7 +105,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::pluck('id', 'title');
+        echo view('dashboard.post.edit', compact('categories','post'));
+        
     }
 
     /**
@@ -76,9 +117,27 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+
+    //  USING PutRequest TO EXECUTE VALIDATIONS FOR THE UPDATE METHOD
+    public function update(PutRequest $request, Post $post)
     {
-        //
+        // SAVING IMAGE
+        $data = $request->validated();
+        if (isset($data["image"])) {
+            // GIVING IMAGE A NAME
+            $data["image"] = $filename = time().".".$data["image"]->extension();
+            $request->image->move(public_path("image"), $filename);
+        }
+
+        // dd($request->validated());
+        $post->update($data);
+
+        
+
+        // SENDS CONFIRMATION MESSAGE WHEN A POST IS UPDATED
+        // $request->session()->flash('status',"Post updated!");
+        // with ALLOWS TO ALSO SEND A MESSAGE WHEN A POST US UPDATED
+        return to_route("post.index")->with('status',"Post updated!");
     }
 
     /**
@@ -89,6 +148,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return to_route("post.index")->with('status',"Post deleted!");
     }
 }

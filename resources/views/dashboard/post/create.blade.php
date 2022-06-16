@@ -1,37 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create post</title>
-</head>
-<body>
-    <h1>CREATE POST</h1>
+{{-- EXTENDING LAYOUT FOR DASHBOARD --}}
 
-    {{-- action USES THE STORE ROUTE OF PostController --}}
-    <form action="{{ route('post.store') }}" method="post">
-        {{-- csrf VALIDATES A TOKEN TO VERIFY THE DATA IS BEING SENT FROM THIS FORM 
-             THIS AVOIDS PETITION ATTACKS --}}
-        @csrf
+@extends('dashboard.layout')
 
-        {{-- FORM TO CREATE POST --}}
-        {{-- NAME IS REQUIRED TO IDENTIFY THE DATA IN THE $request PARAM IN post.store METHOD --}}
-        <label for="">Title</label>
-        <input type="text" name="title">
+{{-- DECLARING THE CONTENT FOR THIS SPECIFIC VIEW --}}
 
-        <label for="">Slug</label>
-        <input type="text" name="slug">
+@section('content')
+<h1>CREATE POST</h1>
 
-        <label for="">Content</label>
-        <textarea name="content"></textarea>
+{{-- IF THERE ARE ANY ERRORS, THEY WILL BE SHOWN HERE --}}
+{{-- USE include TO IMPORT AND USE THE FRAGMENT THAT WILL SHOW THE ERRORS IN VALIDATION --}}
+@include('dashboard.fragment._errors-form')
 
-        <label for="">Description</label>
-        <textarea name="description"></textarea>
+{{-- action USES THE STORE ROUTE OF PostController --}}
+<form action="{{ route('post.store') }}" method="post">
+    
+    @include('dashboard.post._form')
 
-        <button type="submit">Send</button>
-
-    </form>
-
-</body>
-</html>
+</form>
+@endsection
