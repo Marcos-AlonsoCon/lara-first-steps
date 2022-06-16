@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\PostController;
 use App\Http\Controllers\Dashboard\TestController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::get('/', function() {
 // RESOURCE ROUTE TYPE
 // ALLOWS TO AVOID WRITING A ROUTE FOR EVERY METHOD IN A CONTROLLER
 Route::resource('post', PostController::class);
+Route::resource('category', CategoryController::class);
 
     //////// WITH PREVIOUS ROUTE resource WE AVOID WRITING ALL THE 
     //////// FOLLOWING ROUTES
