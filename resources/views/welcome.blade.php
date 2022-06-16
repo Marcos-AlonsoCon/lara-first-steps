@@ -9,13 +9,5 @@
 <body>
     <h1>WELCOME</h1>
 
-    <a href="/contactme">Contact</a> <br>
-    <a href="{{ route('contact') }} ">Contact (route with name)</a>
-    
-    <br>
-    <br>
-    <h4>OBJECT FROM DATABASE:</h4>
-    <!-- OBJECT RECEIVED FROM TestController -->
-    {{ $user -> name }}: {{ $user -> email }}
 </body>
 </html>
