@@ -5,6 +5,9 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 // IMPORT NEEDED TO CREATE A FRIENDLY URL IN prepareForValidation FUNCTION
 use Illuminate\Support\Str;
 
@@ -33,6 +36,18 @@ class StoreRequest extends FormRequest
         // BY DEFAULT IS FALSE. CHANGE TO TRUE
         return true;
     }
+
+
+    // Validator IS IMPORTED ABOVE
+    function failedValidation(Validator $validator)
+    {
+        if($this->expectsJson()) {
+            $response = new Response($validator->errors(), 422);
+            // SHOWING EXCEPTION IN CASE
+            throw new ValidationException($validator, $response);
+        }
+    }
+    
 
     /**
      * Get the validation rules that apply to the request.
