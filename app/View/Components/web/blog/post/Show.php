@@ -11,9 +11,14 @@ class Show extends Component
      *
      * @return void
      */
-    public function __construct()
+
+    //  CREATING post THAT WILL CARRY A SPECIFIC POST
+    public $post;
+    // INITIALAZING post
+    // SO THE VIEW WILL BE LOADED WITH THE SPECIFIC POST
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
