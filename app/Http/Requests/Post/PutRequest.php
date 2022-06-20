@@ -46,7 +46,7 @@ class PutRequest extends FormRequest
         return [
             "title" => "required|min:5|max:500",
             // VERIFIES THAT THE GIVEN SLUG IS UNIQUE IN THE POSTS TABLE
-            "slug" => "required|min:5|max:500|unique:posts,slug,".$this->route("post")->id,
+            "slug" => "min:5|max:500|unique:posts,slug,".$this->route("post")->id,
             "content" => "required|min:5|max:500",
             "category_id" => "required|integer",
             "description" => "required|min:7",
