@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/vue/{n1?}/{n2?}', function () {
+    return view('vue');
+});
+
 
 // PROTECTING THE ROUTES WITH MIDDLEWARE
 // middleware INCLUDES THE auth FOR THE AUTHENTICATION AND admin TO VERIFY IF THE USER IS ADMIN
